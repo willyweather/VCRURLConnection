@@ -111,7 +111,11 @@
 
 - (void)testBodyWithImageData {
     VCRRecording *recording = [[VCRRecording alloc] init];
+    #if SWIFT_PACKAGE
+    NSString *imagePath = [SWIFTPM_MODULE_BUNDLE pathForResource:@"test" ofType:@"png"];
+    #else
     NSString *imagePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"test" ofType:@"png"];
+    #endif
     NSURL *imageURL = [NSURL fileURLWithPath:imagePath];
     recording.headerFields = @{ @"Content-Type": @"image/png" };
     recording.data = [NSData dataWithContentsOfURL:imageURL];

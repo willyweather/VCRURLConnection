@@ -44,7 +44,13 @@
 }
 
 - (void)testSetCurrentCassetteWithURL {
+
+    #if SWIFT_PACKAGE
+    NSString *path = [SWIFTPM_MODULE_BUNDLE pathForResource:@"cassette-1" ofType:@"json"];
+    #else
     NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"cassette-1" ofType:@"json"];
+    #endif
+    
     NSURL *url = [NSURL fileURLWithPath:path];
     NSData *data = [NSData dataWithContentsOfURL:url];
     XCTAssertTrue(data != nil, @"Could not load cassette %@", url);
